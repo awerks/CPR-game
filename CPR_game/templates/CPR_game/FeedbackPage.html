@@ -1,0 +1,79 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="text-center my-4">
+        <h1 class="display-4">Feedback Page</h1>
+    </div>
+
+    {% for round_data in game_1 %}
+    <div class="card mt-5 shadow-lg">
+        <h2 class="card-header text-dark font-weight-bold">Player Data - Game - 1 - Round {{ forloop.counter }}</h2>
+        <div class="card-body">
+            <table class="table table-hover table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Player</th>
+                        <th>Emission (CO2 t)</th>
+                        <th>Profit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for emission, profit in round_data %}
+                    <tr>
+                        <td>Player {{ forloop.counter }}</td>
+                        <td>{{ emission }}</td>
+                        <td>{{ profit }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endfor %}
+
+    {% for round_data in game_2 %}
+    <div class="card mt-5 shadow-lg">
+        <h2 class="card-header text-dark font-weight-bold">Player Data - Game - 2 - Round {{ forloop.counter }}</h2>
+        <div class="card-body">
+            <table class="table table-hover table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Player</th>
+                        <th>Emission (CO2 t)</th>
+                        <th>Profit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for emission, profit in round_data %}
+                    <tr>
+                        <td>Player {{ forloop.counter }}</td>
+                        <td>{{ emission }}</td>
+                        <td>{{ profit }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endfor %}
+
+
+    <div class="card mt-3 shadow-lg">
+        <h2 class="card-header text-dark font-weight-bold">Summary</h2>
+        <div class="card-body">
+            <p class="lead"><strong>Total group emissions this round:</strong> {{ group_total_emission }}</p>
+            <p class="lead"><strong>Total group emissions in previous rounds:</strong> {{
+                total_group_emissions_all_rounds }}</p>
+            <p class="lead"><strong>Your profit:</strong> {{ player_profit }}</p>
+            <p class="lead"><strong>Total group profit so far:</strong> {{ total_group_profit_all_rounds }}</p>
+            <p class="lead"><strong>Next round's profit rate:</strong> {{ next_round_profit_rate }}</p>
+        </div>
+    </div>
+
+    <div class="mt-4 d-flex justify-content-center">
+        {{ next_button }}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block content %}
+    <div class="card-body">
+        <h1 class="card-title text-center mb-4">Introduction</h1>
+        <div class="card mb-4 p-4">
+            <h2>Welcome to our Common-Pool Resource (CPR) Game Experiment</h2>
+            <p>In this experiment, we'll use the context of climate change and Earth's atmosphere to simulate Common-Pool Resource (CPR) scenarios. You, as a participant, are about to embark on a journey where your actions can have a significant impact on the environment.</p>
+
+            <p>Over a total of 20 rounds, you and your fellow teammates will represent the Earth's inhabitants seeking to balance your own profit with the sustainable management of Earth's atmospheric resources. Our game closely mimics the real world problem of CO2 emissions. In every round, you can spend points from your fixed budget to conduct activities, each of which results in CO2 emissions. Every point you spend emits 1t of CO2.</p>
+
+            <p>At the same time, you will receive a return of 1.4 times your spent points plus the remaining unused points as your individual profit. However, be mindful that the Earth's atmosphere can only absorb 100t of CO2 after each round.</p>
+
+            <p>The crucial aspect to remember here is that the more CO2 emissions exceed 1000t, the lower the profit rate for everyone becomes in the following round.</p>
+        </div>
+        
+        <div class="card mb-4 p-4">
+            <h2>Experiment Conditions</h2>
+            <p>This experiment has two main variables: <strong>Heterogeneity</strong> and <strong>Delayed Consequences</strong>.</p>
+
+            <p><strong>Heterogeneity:</strong> Each participant will play two games. In the first, all players receive an equal budget (50 points per round). In the second game, players will be given unequal budgets (30 or 70 points) within the same group.</p>
+        
+            <p><strong>Delayed Consequences:</strong> Half the teams will receive immediate feedback on their resource use and profit consequences after each round, while the other half will only receive feedback after rounds 4, 8, 12, 16, and 20.</p>
+        </div>
+
+        <div class="card mb-4 p-4">
+            <h2>Your Role</h2>
+            <p>As you navigate this experiment, it's essential to remember your ultimate goal: To achieve the maximum possible profit while preserving the Earth's atmosphere's sustainable capacity.</p>
+
+            <p>The choices you make throughout the experiment will provide us valuable insight into the usage and conservation of common-pool resources. They will also test the effectiveness of different feedback mechanisms on influencing behavior.</p>
+
+            <p>Thank you for your participation and all the best for a successful and insightful experiment!</p>
+        </div>
+
+        <div class="text-center mt-3">
+            {{ next_button }}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block custom_styles %}
+<style>
+    .form-container {
+        position: relative;
+        margin-top: 40px;
+        padding: 30px;
+        border: 1px solid #dfdfdf;
+        border-radius: 8px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        background-color: #f8f9fc;
+    }
+
+    .error-message {
+        color: red;
+        font-weight: bold;
+    }
+
+    .info-text {
+        color: #6c757d !important;
+        font-size: 1.1em;
+        background-color: #f1f3f5;
+        padding: 15px;
+        border-radius: 6px;
+        border-left: 5px solid #0275d8 !important;
+    }
+
+    .game-round-info {
+        position: absolute;
+        bottom: 10px;
+        right: 30px;
+        font-size: 0.9em;
+        color: #343a40;
+        font-weight: 500;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h1 class="card-title text-center">Decide Your Emissions</h1>
+    {% if round_number == 1 %}
+    <p class="info-text">In this section, you will decide on your emissions. Keep in mind the balance between resource
+        exploitation and conservation for maximum benefit. Your total payoff will depend on your decisions.</p>
+    {% endif %}
+
+    <form action="" method="post" class="mt-5">
+        <div class="form-group">
+            {{ formfield "emissions" }}
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-primary btn-block">Submit</button>
+        </div>
+    </form>
+
+    <div class="game-round-info">
+        Game: {{ game_number }}; Round: {{ round_number }}
+    </div>
+</div>
+{% endblock %}
