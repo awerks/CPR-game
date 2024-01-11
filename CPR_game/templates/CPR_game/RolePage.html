@@ -7,7 +7,6 @@
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap');
     @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
 
-    /* Page Styles */
     body {
         font-family: 'Montserrat', sans-serif;
         background-color: #f4f6f8;
@@ -31,6 +30,8 @@
 
     .card h2 {
         color: #2980b9;
+        text-align: center;
+        margin-bottom: 20px;
         /* Material blue color for headings */
     }
 
@@ -69,8 +70,10 @@
 
     /* Next button styling */
     .next-button-container .btn {
-        width: 180px;
-        height: 65px;
+
+        width: 225px;
+        height: 55px;
+
         background-color: #2980b9;
         /* Stylized button background */
         color: white;
@@ -79,7 +82,7 @@
         /* Removing button border */
         font-weight: bold;
         /* Making button text bold */
-        padding: 0.5rem 2rem;
+        padding: 0.4rem 1.2rem;
         /* Padding inside the button */
         border-radius: 5px;
         /* Rounded corners */
@@ -95,47 +98,41 @@
     }
 </style>
 {% endblock %}
-{% block content %}
+{%block content%}
 <div class="card-body">
-    <h1 class="card-title text-center mb-4">Introduction</h1>
     <div class="card mb-4 p-4">
-        <h2><i class="fas fa-welcome-sign"></i> Welcome to our Common-Pool Resource (CPR) Game Experiment</h2>
-        <p>In this experiment, we'll use the context of climate change and Earth's atmosphere to simulate Common-Pool
-            Resource (CPR) scenarios. You, as a participant, are about to embark on a journey where your actions can
-            have a significant impact on the environment.</p>
+        <h2><i class="far fa-user-circle"></i>Your Role</h2>
+        {% if is_homogenous %}
+        <p class="highlighted">In this game, each of you will receive equal endowments. Every player will receive 50
+            points each round,
+            which
+            you
+            can use for emissions.</p>
+        {% else %}
+        <p class="highlighted">In this game, endowments will be different among players. You will receive 30 points each
+            round, which you
+            can
+            use
+            for emissions. Two of your co-players will receive 70 points, while one other co-player will receive 30
+            points
+            as
+            well, which they can use for emissions.</p>
+        {% endif %}
+        <p>As you navigate this experiment, it's essential to remember your ultimate goal: To achieve the maximum
+            possible profit while preserving the Earth's atmosphere's sustainable capacity.</p>
 
-        <p>Over a total of 20 rounds, you and your fellow teammates will represent the Earth's inhabitants seeking to
-            balance your own profit with the sustainable management of Earth's atmospheric resources. Our game closely
-            mimics the real world problem of CO2 emissions. In every round, you can spend points from your fixed budget
-            to conduct activities, each of which results in CO2 emissions. Every point you spend emits 1t of CO2.</p>
+        <p>The choices you make throughout the experiment will provide us valuable insight into the usage and
+            conservation of common-pool resources. They will also test the effectiveness of different feedback
+            mechanisms on influencing behavior.</p>
 
-        <p>At the same time, you will receive a return of 1.4 times your spent points plus the remaining unused points
-            as your individual profit. However, be mindful that the Earth's atmosphere can only absorb 100t of CO2 after
-            each round.</p>
-
-        <p>The crucial aspect to remember here is that the more CO2 emissions exceed 1000t, the lower the profit rate
-            for everyone becomes in the following round.</p>
+        <p>Thank you for your participation and all the best for a successful and insightful experiment!</p>
     </div>
-
-    <div class="card mb-4 p-4">
-        <h2><i class="fas fa-tasks"></i> Experiment Conditions</h2>
-        <p>This experiment has two main variables: <strong>Heterogeneity</strong> and <strong>Delayed
-                Consequences</strong>.</p>
-
-        <p><strong>Heterogeneity:</strong> Each participant will play two games. In the first, all players receive an
-            equal budget (50 points per round). In the second game, players will be given unequal budgets (30 or 70
-            points) within the same group.</p>
-
-        <p><strong>Delayed Consequences:</strong> Half the teams will receive immediate feedback on their resource use
-            and profit consequences after each round, while the other half will only receive feedback after rounds 4, 8,
-            12, 16, and 20.</p>
-    </div>
-
-
     <div class="text-center mt-3">
         <div class="next-button-container">
-            <button type="submit" class="btn btn-primary">I READ THE INSTRUCTIONS</button>
+            <button type="submit" class="btn btn-primary">
+                Start the actual game</button>
         </div>
     </div>
+
 </div>
-{% endblock %}
+{%endblock%}

@@ -1,0 +1,133 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+
+{% block custom_styles %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap');
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
+
+    body {
+        font-family: 'Montserrat', sans-serif;
+        background-color: #f4f6f8;
+        /* Lighter background for the page */
+        color: #333;
+        /* Darker text color for better contrast */
+    }
+
+
+    .card {
+        padding: 20px;
+        background-color: #fff;
+        /* White background for cards */
+        border: none;
+        /* Remove default border */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        /* Subtle shadow for depth */
+        border-radius: 8px;
+        /* Rounded border for smooth look */
+        margin-bottom: 40px;
+        padding-bottom: 25px;
+        /* Margin bottom for spacing */
+    }
+
+    .card h2 {
+        color: #2980b9;
+        text-align: center;
+        margin-bottom: 20px;
+        /* Material blue color for headings */
+    }
+
+    .highlighted {
+        color: #495057 !important;
+        font-size: 1.1em;
+        background-color: #cce5ff;
+        padding: 15px;
+        border-radius: 6px;
+        border-left: 5px solid #0275d8 !important;
+    }
+
+    .card h2::before {
+        /* Add icons to the headings */
+        font-family: "Font Awesome 5 Free";
+        /* Font Awesome font family */
+        font-weight: 900;
+        /* Font Awesome requires font-weight 900 */
+        content: "\f1b3 ";
+        /* Unicode for globe (earth) */
+        color: #2980b9;
+        /* Material blue color for icons */
+        margin-right: 5px;
+        /* Space between icon and text */
+    }
+
+    .card-title {
+        color: #1976d2;
+        /* Material blue color for the title */
+        margin-bottom: 30px;
+        /* Space after title */
+    }
+
+    /* Next button styling */
+    .next-button-container .btn {
+
+        width: 250px;
+        height: 50px;
+
+        background-color: #2980b9;
+        /* Stylized button background */
+        color: white;
+        /* White text on button */
+        border: none;
+        /* Removing button border */
+        font-weight: bold;
+        /* Making button text bold */
+
+        /* Padding inside the button */
+        border-radius: 5px;
+        /* Rounded corners */
+        transition: background-color 0.3s ease;
+        /* Smooth background transition for hover */
+    }
+
+    .next-button-container .btn:hover {
+        background-color: #1a5276;
+        /* Darker shade on hover */
+        cursor: pointer;
+        /* Indicate button is clickable */
+    }
+
+    .no-border {
+        border: none;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="card-body">
+    <div class="card mb-4">
+        <!-- Card Title with Icon -->
+        <h1 class="card-title text-center">
+            <i class="fas fa-chalkboard-teacher"></i> Practice!
+        </h1>
+        <!-- Highlighted paragraph with Icon -->
+        <p class="highlighted">
+            <i class="fas fa-info-circle fa-pull-left fa-border fa-fw no-border"></i>
+            In the following, you will be distributed into a random group of 4 players to play one practice round, where
+            all of you receive 50 points, which you can use for emissions. This round should help you understand the
+            interface of the experiment. Your decisions in this round will not influence your actual outcomes. After
+            this round, you will be distributed into a new group of players. Please raise your hand if you have any
+            questions.
+        </p>
+    </div>
+
+    <div class="text-center mt-3">
+        <div class="next-button-container">
+            <!-- Start Button with Play Icon -->
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-play"></i> Start a Test Round
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}

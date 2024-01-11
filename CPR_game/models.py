@@ -21,14 +21,25 @@ class Constants(BaseConstants):
 class Subsession(BaseSubsession):
     def creating_session(self):
         if self.round_number == 1:
-            for group in self.get_groups():
-                for player in group.get_players():
-                    if group.id_in_subsession % 2 == 0:
-                        player.participant.vars["game_order"] = ["equal", "unequal"]
-                        player.participant.vars["feedback_type"] = "immediate"
-                    else:
-                        player.participant.vars["game_order"] = ["unequal", "equal"]
-                        player.participant.vars["feedback_type"] = "delayed"
+            min_id = min(player.group.id_in_subsession for player in self.get_players())
+            for player in self.get_players():
+                group_id = (player.group.id_in_subsession - min_id) % 4 + 1
+                if group_id == 1:
+                    # Groups 1, 5, 9, ...
+                    player.participant.vars["game_order"] = ["equal", "unequal"]
+                    player.participant.vars["feedback_type"] = "delayed"
+                elif group_id == 2:
+                    # Groups 2, 6, 10, ...
+                    player.participant.vars["game_order"] = ["unequal", "equal"]
+                    player.participant.vars["feedback_type"] = "delayed"
+                elif group_id == 3:
+                    # Groups 3, 7, 11, ...
+                    player.participant.vars["game_order"] = ["unequal", "equal"]
+                    player.participant.vars["feedback_type"] = "immediate"
+                elif group_id == 4:
+                    # Groups 4, 8, 12, ...
+                    player.participant.vars["game_order"] = ["unequal", "equal"]
+                    player.participant.vars["feedback_type"] = "immediate"
 
         for p in self.get_players():
             game_type = (
@@ -74,6 +85,8 @@ class Group(BaseGroup):
 class Player(BasePlayer):
     emissions = models.FloatField(
         label="How many units of CO2 do you want to emit?",
+        initial=0,
+        min=0,
     )
     endowment = models.IntegerField()
 

@@ -3,6 +3,18 @@
 
 {% block custom_styles %}
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap');
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
+
+    /* Page Styles */
+    body {
+        font-family: 'Montserrat', sans-serif;
+        background-color: #f4f6f8;
+        /* Lighter background for the page */
+        color: #333;
+        /* Darker text color for better contrast */
+    }
+
     .form-container {
         position: relative;
         margin-top: 40px;
@@ -19,9 +31,9 @@
     }
 
     .info-text {
-        color: #6c757d !important;
+        color: #495057 !important;
         font-size: 1.1em;
-        background-color: #f1f3f5;
+        background-color: #cce5ff;
         padding: 15px;
         border-radius: 6px;
         border-left: 5px solid #0275d8 !important;
@@ -31,9 +43,35 @@
         position: absolute;
         bottom: 10px;
         right: 30px;
-        font-size: 0.9em;
+        font-size: 1em;
+
         color: #343a40;
-        font-weight: 500;
+        font-weight: 600;
+    }
+
+    /* Next button styling */
+    .next-button-container .btn {
+        background-color: #2980b9;
+        /* Stylized button background */
+        color: white;
+        /* White text on button */
+        border: none;
+        /* Removing button border */
+        font-weight: bold;
+        /* Making button text bold */
+        padding: 0.5rem 2rem;
+        /* Padding inside the button */
+        border-radius: 5px;
+        /* Rounded corners */
+        transition: background-color 0.3s ease;
+        /* Smooth background transition for hover */
+    }
+
+    .next-button-container .btn:hover {
+        background-color: #1a5276;
+        /* Darker shade on hover */
+        cursor: pointer;
+        /* Indicate button is clickable */
     }
 </style>
 {% endblock %}
@@ -52,7 +90,9 @@
         </div>
 
         <div class="form-group">
-            <button class="btn btn-primary btn-block">Submit</button>
+            <div class="next-button-container">
+                {{ next_button }}
+            </div>
         </div>
     </form>
 

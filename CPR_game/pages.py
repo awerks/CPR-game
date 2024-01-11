@@ -8,6 +8,31 @@ class IntroductionPage(Page):
         return self.round_number == 1
 
 
+class QuestionnairePage(Page):
+    def is_displayed(self):
+        return self.round_number == 1
+
+
+class TestRoundEndPage(Page):
+    def is_displayed(self):
+        return self.round_number == 1
+
+
+class RolePage(Page):
+    def is_displayed(self):
+        return self.round_number == 2
+
+    def vars_for_template(self):
+        return {
+            "is_homogenous": self.player.participant.vars["game_order"][0] == "equal",
+        }
+
+
+class TestRoundIntroPage(Page):
+    def is_displayed(self):
+        return self.round_number == 1
+
+
 class EmissionsDecisionPage(Page):
     form_model = "player"
     form_fields = ["emissions"]
@@ -101,6 +126,11 @@ class NextGameWaitPage(Page):
     def is_displayed(self):
         return self.round_number == Constants.num_rounds // 2
 
+    def vars_for_template(self):
+        return {
+            "is_homogenous": self.player.participant.vars["game_order"][1] == "equal",
+        }
+
 
 class EndPage(Page):
     def is_displayed(self):
@@ -109,9 +139,13 @@ class EndPage(Page):
 
 page_sequence = [
     IntroductionPage,
+    QuestionnairePage,
+    TestRoundIntroPage,
+    RolePage,
     EmissionsDecisionPage,
     ResultsWaitPage,
     FeedbackPage,
+    TestRoundEndPage,
     NextGameWaitPage,
     EndPage,
 ]

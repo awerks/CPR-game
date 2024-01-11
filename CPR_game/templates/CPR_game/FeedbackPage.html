@@ -1,15 +1,125 @@
 {% extends "global/Page.html" %}
 {% load otree static %}
 
+{% block custom_styles %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap');
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
+
+    body {
+        font-family: 'Montserrat', sans-serif;
+        background-color: #f4f6f8;
+        /* Lighter background for the page */
+        color: #333;
+        /* Darker text color for better contrast */
+    }
+
+    .container {
+        max-width: 960px;
+        /* Limiting max width */
+        margin: 40px auto;
+        /* Centering container with margin */
+    }
+
+    h1.display-4 {
+        color: #0d47a1;
+        /* Dark blue for the main title */
+        margin-bottom: 30px;
+        /* Increased spacing below the title */
+    }
+
+    .card {
+        border: none;
+        /* Hide default border */
+        border-radius: 10px;
+        /* Rounded corners */
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+        /* Added more pronounced shadow */
+        margin-top: 20px;
+        /* Space between cards */
+        background-color: #ffffff;
+        /* White background for card */
+    }
+
+    .card-header {
+        background-color: #bbdefb;
+        /* Light blue background for headers */
+        color: #0d47a1;
+        /* Dark blue color for header text */
+        border-bottom: none;
+        /* removing header bottom border */
+        font-size: 24px;
+        /* Slightly larger font for headers */
+    }
+
+    .thead-dark th {
+        background-color: #bbdefb;
+        /* Dark blue for table headers */
+        color: #0d47a1;
+        /* White text for table headers */
+    }
+
+    .table .tbody tr:hover {
+        background-color: #f1f8ff;
+        /* Light blue on hover for rows */
+    }
+
+    .lead strong {
+        font-weight: 700;
+        /* Bold text for strong tags */
+        color: #0d47a1;
+        /* Dark blue for emphasis */
+    }
+
+    .lead {
+        font-size: 20px;
+        /* Increased font-size for better readability */
+        color: #333;
+        /* Darker text for contrast */
+    }
+
+    .d-flex.justify-content-center {
+        margin-top: 30px;
+        /* Add some space before the next button */
+    }
+
+    .btn {
+        background-color: #1e88e5;
+        /* Material blue for buttons */
+        color: #ffffff;
+        /* White text for buttons */
+        border-radius: 5px;
+        /* Rounded corners for buttons */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        /* Box-shadow for buttons */
+        padding: 10px 20px;
+        /* Padding inside buttons */
+    }
+
+    .btn:hover {
+        background-color: #1565c0;
+        /* Darker blue on hover for buttons */
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        /* Darker box-shadow on hover for buttons */
+    }
+
+    .fas {
+        margin-right: 10px;
+        /* Space between icon and text */
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 <div class="container mt-5">
     <div class="text-center my-4">
-        <h1 class="display-4">Feedback Page</h1>
+        <h1 class="display-4"><i class="fas fa-chart-bar"></i> Feedback Page</h1>
     </div>
 
     {% for round_data in game_1 %}
     <div class="card mt-5 shadow-lg">
-        <h2 class="card-header text-dark font-weight-bold">Player Data - Game - 1 - Round {{ forloop.counter }}</h2>
+        <h2 class="card-header"><i class="fas fa-user-friends"></i> Player Data - Game 1 - Round {{ forloop.counter }}
+        </h2>
         <div class="card-body">
             <table class="table table-hover table-striped table-bordered">
                 <thead class="thead-dark">
@@ -61,7 +171,7 @@
 
 
     <div class="card mt-3 shadow-lg">
-        <h2 class="card-header text-dark font-weight-bold">Summary</h2>
+        <h2 class="card-header"><i class="fas fa-coins"></i> Summary</h2>
         <div class="card-body">
             <p class="lead"><strong>Total group emissions this round:</strong> {{ group_total_emission }}</p>
             <p class="lead"><strong>Total group emissions in previous rounds:</strong> {{

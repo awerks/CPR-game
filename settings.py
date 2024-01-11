@@ -4,7 +4,7 @@ SESSION_CONFIGS = [
     dict(
         name="CPR_game",
         display_name="CPR Game",
-        num_demo_participants=5,
+        num_demo_participants=4,
         app_sequence=["CPR_game"],
         num_rounds=7,
     )
