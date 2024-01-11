@@ -5,13 +5,17 @@ from otree.api import Currency as c
 class Constants(BaseConstants):
     name_in_url = "CPR_game"
     players_per_group = 4
-    num_rounds = 8  # 2 games of 20 rounds each
+    num_rounds = 8 + 1  # add 1 for the test round
 
-    # feedback_rounds = [4, 9, 13, 17, 20]
-    feedback_rounds = [1, 2, 3, 4, 5]
+    # include zero if you want feedback on the practice round
 
+    # feedback_rounds = [0, 4, 9, 13, 17, 20]
+
+    feedback_rounds = [0, 1, 2, 3, 4, 5]
+
+    num_recent_rounds_to_display = 4
     equal_endowment = 50
-    unequal_endowments = [30, 70]  # used for the unequal game
+    unequal_endowments = [30, 70]
 
     initial_profit_rate = 1.4
     regeneration_rate = 100
@@ -44,7 +48,7 @@ class Subsession(BaseSubsession):
         for p in self.get_players():
             game_type = (
                 p.participant.vars["game_order"][0]
-                if self.round_number <= Constants.num_rounds // 2
+                if self.round_number - 1 <= Constants.num_rounds // 2
                 else p.participant.vars["game_order"][1]
             )
 
@@ -63,7 +67,11 @@ class Group(BaseGroup):
     profit_rate = models.FloatField()
 
     def get_previous_value(self, attribute, initial_value):
-        return getattr(self.in_round(self.round_number - 1), attribute) if self.round_number > 1 else initial_value
+        return (
+            getattr(self.in_round(self.round_number - 1), attribute)
+            if self.round_number > 1 and self.round_number - 1 <= Constants.num_rounds // 2
+            else initial_value
+        )
 
     def set_payoffs(self):
         players = self.get_players()

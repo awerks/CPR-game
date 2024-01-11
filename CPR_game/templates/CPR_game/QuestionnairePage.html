@@ -1,34 +1,29 @@
-{% extends "global/Page.html" %}
-{% load otree static %}
-
-{% block custom_styles %}
+{% extends "global/Page.html" %} {% load otree static %} {% block custom_styles
+%}
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap');
-    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
+    @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap");
+    @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css");
 
-    /* Page Styles */
     body {
-        font-family: 'Montserrat', sans-serif;
+        font-family: "Montserrat", sans-serif;
         background-color: #f4f6f8;
-        /* Lighter background for the page */
+
         color: #333;
-        /* Darker text color for better contrast */
     }
 
     .question-container {
-        background: #FFFFFF;
+        background: #ffffff;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        /* Shadow for depth */
+
         border-radius: 10px;
         margin-bottom: 1.5rem;
         padding: 20px;
         overflow: hidden;
     }
 
-
     .fa-question-circle {
-        color: #1E88E5;
-        /* Material blue for icons */
+        color: #1e88e5;
+
         margin-right: 10px;
     }
 
@@ -37,7 +32,6 @@
     }
 
     .question-options {
-
         margin-left: 20px;
     }
 
@@ -45,16 +39,14 @@
         display: block;
     }
 
-
     .reveal-answers-container {
         text-align: center;
         margin-top: 30px;
     }
 
-    /* Add custom styles for the feedback-message here */
     .feedback-message {
         display: none;
-        /* Hide feedback initially */
+
         background-color: #e3f2fd;
         border-left: 5px solid #1e88e5;
         padding: 10px;
@@ -63,13 +55,11 @@
         text-align: left;
     }
 
-    /* Add custom styles for the reveal-answers-container here */
     .reveal-answers-container {
         text-align: center;
         margin-top: 30px;
     }
 
-    /* Add custom styles for the reveal-button here */
     .reveal-button {
         background-color: #2980b9;
         color: #ffffff;
@@ -79,9 +69,9 @@
         cursor: pointer;
         transition: background-color 0.3s;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        /* Shadow for depth */
+
         text-transform: uppercase;
-        /* Style consistent with Material Design */
+
         font-weight: bold;
     }
 
@@ -92,67 +82,69 @@
     .option {
         clear: both;
         display: flex;
-        /* Display as flex */
+
         align-items: center;
-        /* Align items in center */
+
         margin-bottom: 10px;
-        /* Clear floats */
     }
 
     .option input {
         float: left;
-        /* Float to the left */
-        /* Space between the radio button and label */
+
         margin-right: 10px;
     }
 
     .option label {
         float: left;
-        /* Float to the left */
     }
 
     .correct-answer {
-        background-color: #C8E6C9;
-        /* Green background for correct answers */
+        background-color: #c8e6c9;
     }
 
     .incorrect-answer {
-        background-color: #FFCDD2;
-        /* Red background for incorrect answers */
+        background-color: #ffcdd2;
     }
 </style>
-{% endblock %}
-
-{% block content %}
+{% endblock %} {% block content %}
 <div class="container">
-    <h2 class="text-center"><i class="fas fa-clipboard-list"></i> Control Questions</h2>
-    <p>Please answer these control questions in order to check if you understood the instructions.</p>
+    <h2 class="text-center">
+        <i class="fas fa-clipboard-list"></i> Control Questions
+    </h2>
+    <p>
+        Please answer these control questions in order to check if you understood
+        the instructions.
+    </p>
 
     <!-- Question 1 -->
     <div class="question-container" data-correct-answer-id="q1a">
         <i class="fas fa-question-circle"></i>
         <strong class="question">Question 1:</strong>
         <div class="question-header">
-
-            <p>At the start of the round, the atmospheric CO2 levels stand at 1000 tons. Your group collectively emits
-                90 tons of CO2 during this round. After absorption, what is the remaining amount of CO2 in the
-                atmosphere?</p>
+            <p>
+                At the start of the round, the atmospheric CO2 levels stand at 1000
+                tons. Your group collectively emits 90 tons of CO2 during this round.
+                After absorption, what is the remaining amount of CO2 in the atmosphere?
+            </p>
         </div>
         <div class="question-options">
             <div class="option">
-                <input type="radio" id="q1a" name="question_1" value="a">
-                <label for="q1a">1000 because atmospheric CO2 levels cannot fall below 1000 tons</label>
+                <input type="radio" id="q1a" name="question_1" value="a" />
+                <label for="q1a">1000 because atmospheric CO2 levels cannot fall below 1000
+                    tons</label>
             </div>
 
             <div class="option">
-                <input type="radio" id="q1b" name="question_1" value="b">
-                <label for="q1b">990 because 1000 (initial CO2 level) + 90 (emissions) – 100 (absorption) = 990</label>
+                <input type="radio" id="q1b" name="question_1" value="b" />
+                <label for="q1b">990 because 1000 (initial CO2 level) + 90 (emissions) – 100
+                    (absorption) = 990</label>
             </div>
         </div>
         <div class="feedback-message" id="feedback-q1">
-            <p>The remaining amount of CO2 in the atmosphere after absorption is 1000 because atmospheric CO2 levels
-                cannot fall below
-                1000 tons</p>
+            <p>
+                The remaining amount of CO2 in the atmosphere after absorption is 1000
+                because atmospheric CO2 levels cannot fall below 1000 tons
+            </p>
         </div>
     </div>
 
@@ -161,31 +153,34 @@
         <div class="question-header">
             <i class="fas fa-question-circle"></i>
             <strong>Question 2:</strong>
-            <p>At the start of the round, the atmospheric CO2 levels stand at 1100 tons. Your group collectively emits
-                150 tons of CO2 during this round. After absorption, what is the remaining amount of CO2 in the
-                atmosphere?</p>
+            <p>
+                At the start of the round, the atmospheric CO2 levels stand at 1100
+                tons. Your group collectively emits 150 tons of CO2 during this round.
+                After absorption, what is the remaining amount of CO2 in the atmosphere?
+            </p>
         </div>
         <div class="question-options">
             <div class="option">
-                <input type="radio" id="q2a" name="question_2" value="a">
-                <label for="q2a">1050 because 1000 (initial CO2 level) + 150 (emissions) – 100 (absorption) =
-                    1000</label>
+                <input type="radio" id="q2a" name="question_2" value="a" />
+                <label for="q2a">1050 because 1000 (initial CO2 level) + 150 (emissions) – 100
+                    (absorption) = 1000</label>
             </div>
             <div class="option">
-                <input type="radio" id="q2b" name="question_2" value="b">
-                <label for="q2b">1150 because 1100 (initial CO2 level) + 150 (emissions) – 100 (absorption) =
-                    1500</label>
+                <input type="radio" id="q2b" name="question_2" value="b" />
+                <label for="q2b">1150 because 1100 (initial CO2 level) + 150 (emissions) – 100
+                    (absorption) = 1500</label>
             </div>
             <div class="option">
-                <input type="radio" id="q2c" name="question_2" value="c">
+                <input type="radio" id="q2c" name="question_2" value="c" />
                 <label for="q2c">1250 because 1100 (initial CO2 level) + 150 (emissions) = 1000</label>
             </div>
-
         </div>
         <div class="feedback-message" id="feedback-q2">
-            <p>The remaining amount of CO2 in the atmosphere after absorption is 1150 because 1100 (initial CO2 level +
-                150 (emissions)
-                – 100 (absorption) = 1150.</p>
+            <p>
+                The remaining amount of CO2 in the atmosphere after absorption is 1150
+                because 1100 (initial CO2 level + 150 (emissions) – 100 (absorption) =
+                1150.
+            </p>
         </div>
     </div>
 
@@ -194,24 +189,30 @@
         <div class="question-header">
             <i class="fas fa-question-circle"></i>
             <strong>Question 3:</strong>
-            <p>If the remaining amount of CO2 in the atmosphere after absorption is 1150, what is the resulting profit
-                rate for the next round?</p>
+            <p>
+                If the remaining amount of CO2 in the atmosphere after absorption is
+                1150, what is the resulting profit rate for the next round?
+            </p>
         </div>
         <div class="question-options">
-            <div class="option"><input type="radio" id="q3a" name="question_3" value="a">
+            <div class="option">
+                <input type="radio" id="q3a" name="question_3" value="a" />
                 <label for="q3a">1.4 because 1.4 x (1000/1000) = 1.4</label>
             </div>
             <div class="option">
-                <input type="radio" id="q3b" name="question_3" value="b">
+                <input type="radio" id="q3b" name="question_3" value="b" />
                 <label for="q3b">1.61 because 1.4 x (1150/1000) = 1.61</label>
             </div>
-            <div class="option"><input type="radio" id="q3c" name="question_3" value="c">
+            <div class="option">
+                <input type="radio" id="q3c" name="question_3" value="c" />
                 <label for="q3c">1.22 because 1.4 x (1000/1150) = 1.22.</label>
             </div>
-
         </div>
         <div class="feedback-message" id="feedback-q3">
-            <p>The resulting profit rate for the next round is 1.22 because 1.4 x (1000/1150) = 1.22.</p>
+            <p>
+                The resulting profit rate for the next round is 1.22 because 1.4 x
+                (1000/1150) = 1.22.
+            </p>
         </div>
     </div>
 
@@ -220,48 +221,53 @@
     </div>
 
     <div class="reveal-answers-container">
-        <button class="reveal-button" style="display:none" id="next-button">Next</button>
+        <button class="reveal-button" style="display: none" id="next-button">
+            Next
+        </button>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            const revealButton = document.querySelector('#reveal-answers');
-            const nextButton = document.querySelector('#next-button');
-            revealButton.addEventListener('click', (event) => {
+        document.addEventListener("DOMContentLoaded", (event) => {
+            const revealButton = document.querySelector("#reveal-answers");
+            const nextButton = document.querySelector("#next-button");
+            revealButton.addEventListener("click", (event) => {
                 event.preventDefault();
-                const questionContainers = document.querySelectorAll('.question-container');
+                const questionContainers = document.querySelectorAll(
+                    ".question-container"
+                );
                 let allQuestionsAnswered = true;
 
-                questionContainers.forEach(container => {
-                    const hasAnswer = container.querySelector('input[type="radio"]:checked');
+                questionContainers.forEach((container) => {
+                    const hasAnswer = container.querySelector(
+                        'input[type="radio"]:checked'
+                    );
                     if (!hasAnswer) {
                         allQuestionsAnswered = false;
                     } else {
                         // Highlight the answers based on correctness
-                        const correctAnswerId = container.getAttribute('data-correct-answer-id'); // This needs to be set on each `.question-container` with the id of the correct answer.
+                        const correctAnswerId = container.getAttribute(
+                            "data-correct-answer-id"
+                        ); // This needs to be set on each `.question-container` with the id of the correct answer.
 
                         if (hasAnswer.id === correctAnswerId) {
-                            hasAnswer.parentElement.classList.add('correct-answer');
+                            hasAnswer.parentElement.classList.add("correct-answer");
                         } else {
-                            hasAnswer.parentElement.classList.add('incorrect-answer');
+                            hasAnswer.parentElement.classList.add("incorrect-answer");
                         }
                     }
                 });
 
                 if (allQuestionsAnswered) {
-                    document.querySelectorAll('.feedback-message').forEach(message => {
-                        message.style.display = 'block';
-                        revealButton.style.display = 'none';
-                        nextButton.style.display = 'inline-block';
-
+                    document.querySelectorAll(".feedback-message").forEach((message) => {
+                        message.style.display = "block";
+                        revealButton.style.display = "none";
+                        nextButton.style.display = "inline-block";
                     });
                 } else {
-                    alert('Please answer all the questions before showing answers.');
+                    alert("Please answer all the questions before showing answers.");
                 }
-
             });
         });
     </script>
-
 </div>
 {% endblock %}

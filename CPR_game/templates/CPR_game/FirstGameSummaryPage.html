@@ -9,89 +9,62 @@
     body {
         font-family: 'Montserrat', sans-serif;
         background-color: #f4f6f8;
-
         color: #333;
-
     }
 
     .container {
         max-width: 960px;
-
         margin: 40px auto;
-
     }
 
     h1.display-4 {
         color: #0d47a1;
-
         margin-bottom: 30px;
-
     }
 
     .card {
         border: none;
-
         border-radius: 10px;
-
         box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-
         margin-top: 20px;
-
         background-color: #ffffff;
-
     }
 
     .card-header {
         background-color: #bbdefb;
-
         color: #0d47a1;
-
         border-bottom: none;
-
         font-size: 24px;
-
     }
 
     .thead-dark th {
         background-color: #bbdefb;
-
         color: #0d47a1;
-
     }
 
     .table .tbody tr:hover {
         background-color: #f1f8ff;
-
     }
 
     .lead strong {
         font-weight: 700;
-
         color: #0d47a1;
-
     }
 
     .lead {
         font-size: 20px;
-
         color: #333;
-
     }
 
     .d-flex.justify-content-center {
         margin-top: 30px;
-
     }
 
     .btn {
         background-color: #1e88e5;
-
         color: #ffffff;
-
         border-radius: 5px;
-
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
         padding: 10px 20px;
     }
 
@@ -102,7 +75,6 @@
 
     .fas {
         margin-right: 10px;
-
     }
 </style>
 {% endblock %}
@@ -110,51 +82,18 @@
 {% block content %}
 <div class="container mt-5">
     <div class="text-center my-4">
-        <h1 class="display-4"><i class="fas fa-chart-bar"></i> Feedback Page</h1>
+        <h1 class="display-4"><i class="fas fa-chart-bar"></i> First game summary</h1>
     </div>
 
-    {% for round_number, group_total_emission, group_total_profit, next_round_profit_rate, round_data in table_data %}
-    <div class="card mt-5 shadow-lg">
-        <h2 class="card-header"><i class="fas fa-user-friends"></i> Player Data - {%if not_test_round%} Round {{
-            round_number }} {%else%} Test Round {%endif%}
-        </h2>
+    <div class="card mt-3 shadow-lg">
+        <h2 class="card-header"><i class="fas fa-coins"></i> Summary</h2>
         <div class="card-body">
-            <table class="table table-hover table-striped table-bordered">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>Player</th>
-                        <th>Player's Endowment</th>
-                        <th>Emission (CO2 t)</th>
-                        <th>Profit</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for endowment, emission, profit in round_data %}
-                    <tr>
-                        {% if forloop.counter == player_id %}
-                        <td>YOU</td>
-                        {% else %}
-                        <td>Player {{ forloop.counter }}</td>
-                        {% endif %}
-                        <td>{{ endowment }}</td>
-                        <td>{{ emission }}</td>
-                        <td>{{ profit }}</td>
-                    </tr>
-                    {% endfor %}
-                    <tr>
-                        <td>Group's Total</td>
-                        <td></td>
-                        <td>{{ group_total_emission }}</td>
-                        <td>{{ group_total_profit }}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <p style="font-weight: 600; color:#0d47a1">Next round's profit rate: {{next_round_profit_rate}}</p>
+            <p class="lead"><strong>Total group emissions:</strong> {{
+                total_group_emissions_all_rounds }}</p>
+            <p class="lead"><strong>Total group profit:</strong> {{ total_group_profit_all_rounds }}</p>
+            <p class="lead"><strong>Your total profit:</strong> {{ total_personal_profit }}</p>
         </div>
     </div>
-    {% endfor %}
-
-
 
     <div class="mt-4 d-flex justify-content-center">
         {{ next_button }}

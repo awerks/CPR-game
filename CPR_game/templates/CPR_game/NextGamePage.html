@@ -9,9 +9,9 @@
     body {
         font-family: 'Montserrat', sans-serif;
         background-color: #f4f6f8;
-        /* Lighter background for the page */
+
         color: #333;
-        /* Darker text color for better contrast */
+
     }
 
     .instructions-container {
@@ -70,20 +70,20 @@
         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     }
 
-    /* Add an icon before the highlighted text */
+
     .highlighted::before {
 
-        /* FontAwesome info-circle unicode */
+
         font-family: "Font Awesome 5 Free";
-        /* FontAwesome font-family */
+
         font-weight: 900;
-        /* FontAwesome requires font-weight 900 */
+
         position: absolute;
         left: 10px;
         top: 50%;
         transform: translateY(-50%);
         color: #1e88e5;
-        /* Match icon color to border left color */
+
         font-size: 1.5em;
     }
 </style>
@@ -98,9 +98,11 @@
     <p class="highlighted">In the next game, each of you will receive equal endowments. Every player will receive 50
         points each round, which you can use for emissions.</p>
     {% else %}
-    <p class="highlighted">In the next game, endowments will be different among players. You will receive 30 points each
-        round, which you can use for emissions. Two of your co-players will receive 70 points, while one other co-player
-        will receive 30 points as well, which they can use for emissions.</p>
+    <p class="highlighted">In the next game, endowments will be different among players. You will receive
+        {{player_endownment}} points each
+        round, which you can use for emissions. Two of your co-players will receive {{other_players_endownment}} points,
+        while one other co-player
+        will receive {{player_endownment}} points as well, which they can use for emissions.</p>
     {% endif %}
     <div class="instructions-text">
         Now, you will be handed out instructions for the second game. Please read them carefully to understand the rules
@@ -112,7 +114,8 @@
     </div>
 
     <div class="next-button-container">
-        {{ next_button }}
+        <button type="submit" class="btn btn-primary">
+            Start the second game</button>
     </div>
 </div>
 {% endblock %}

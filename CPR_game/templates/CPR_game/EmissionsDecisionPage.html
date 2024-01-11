@@ -6,13 +6,17 @@
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap');
     @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
 
-    /* Page Styles */
+
     body {
         font-family: 'Montserrat', sans-serif;
         background-color: #f4f6f8;
-        /* Lighter background for the page */
+
         color: #333;
-        /* Darker text color for better contrast */
+
+    }
+
+    .header {
+        margin-bottom: 40px;
     }
 
     .form-container {
@@ -49,37 +53,37 @@
         font-weight: 600;
     }
 
-    /* Next button styling */
+
     .next-button-container .btn {
         background-color: #2980b9;
-        /* Stylized button background */
+
         color: white;
-        /* White text on button */
+
         border: none;
-        /* Removing button border */
+
         font-weight: bold;
-        /* Making button text bold */
+
         padding: 0.5rem 2rem;
-        /* Padding inside the button */
+
         border-radius: 5px;
-        /* Rounded corners */
+
         transition: background-color 0.3s ease;
-        /* Smooth background transition for hover */
+
     }
 
     .next-button-container .btn:hover {
         background-color: #1a5276;
-        /* Darker shade on hover */
+
         cursor: pointer;
-        /* Indicate button is clickable */
+
     }
 </style>
 {% endblock %}
 
 {% block content %}
 <div class="form-container">
-    <h1 class="card-title text-center">Decide Your Emissions</h1>
-    {% if round_number == 1 %}
+    <h1 class="card-title text-center header">Decide Your Emissions</h1>
+    {% if round_number == 0 %}
     <p class="info-text">In this section, you will decide on your emissions. Keep in mind the balance between resource
         exploitation and conservation for maximum benefit. Your total payoff will depend on your decisions.</p>
     {% endif %}
@@ -97,7 +101,14 @@
     </form>
 
     <div class="game-round-info">
+        {% if round_number > 0 %}
         Game: {{ game_number }}; Round: {{ round_number }}
+        {%else%}
+        Test Round
+        {% endif %}
     </div>
+
+
+
 </div>
 {% endblock %}

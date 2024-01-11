@@ -3,13 +3,22 @@
 
 {% block custom_styles %}
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap');
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
+
+    body {
+        font-family: 'Montserrat', sans-serif;
+        background-color: #f0f2f5;
+        color: #343a40;
+    }
+
     .end-container {
         margin: 40px auto;
         padding: 30px;
-        border: 1px solid #dfdfdf;
         border-radius: 8px;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        background-color: #f8f9fc;
+        box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+        background-color: #ffffff;
+        max-width: 700px;
     }
 
     .end-message {
@@ -18,6 +27,83 @@
 
     .end-title {
         margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #4caf50;
+    }
+
+    .end-title i {
+        margin-right: 10px;
+    }
+
+    .end-message p {
+        color: #606770;
+    }
+
+    .container {
+        max-width: 960px;
+        margin: 40px auto;
+    }
+
+    h1.display-4 {
+        color: #0d47a1;
+        margin-bottom: 30px;
+    }
+
+    .card {
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+        margin-top: 20px;
+        background-color: #ffffff;
+    }
+
+    .card-header {
+        background-color: #bbdefb;
+        color: #0d47a1;
+        border-bottom: none;
+        font-size: 24px;
+    }
+
+    .thead-dark th {
+        background-color: #bbdefb;
+        color: #0d47a1;
+    }
+
+    .table .tbody tr:hover {
+        background-color: #f1f8ff;
+    }
+
+    .lead strong {
+        font-weight: 700;
+        color: #0d47a1;
+    }
+
+    .lead {
+        font-size: 20px;
+        color: #333;
+    }
+
+    .d-flex.justify-content-center {
+        margin-top: 30px;
+    }
+
+    .btn {
+        background-color: #1e88e5;
+        color: #ffffff;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 10px 20px;
+    }
+
+    .btn:hover {
+        background-color: #1565c0;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .fas {
+        margin-right: 10px;
     }
 </style>
 {% endblock %}
@@ -25,10 +111,22 @@
 {% block content %}
 <div class="end-container">
     <div class="end-message">
-        <h1 class="end-title">End of the Game</h1>
+        <h1 class="end-title">
+            <i class="fas fa-check-circle"></i>
+            End of the Game
+        </h1>
         <p>Thank you for participating in the CPR game. Your responses have been recorded and
             will significantly contribute to our understanding of responses to common pool resource dilemmas. If you
             have any feedback or additional insights you'd like to share, please don't hesitate to reach out.</p>
+    </div>
+</div>
+<div class="end-container">
+    <h2 class="card-header"><i class="fas fa-coins"></i> Game Summary</h2>
+    <div class="card-body">
+        <p class="lead"><strong>Total group emissions:</strong> {{
+            total_group_emissions_all_rounds }}</p>
+        <p class="lead"><strong>Total group profit:</strong> {{ total_group_profit_all_rounds }}</p>
+        <p class="lead"><strong>Your total profit:</strong> {{ total_personal_profit }}</p>
     </div>
 </div>
 {% endblock %}

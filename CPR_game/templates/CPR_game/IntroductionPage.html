@@ -7,91 +7,91 @@
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap');
     @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
 
-    /* Page Styles */
+
     body {
         font-family: 'Montserrat', sans-serif;
         background-color: #f4f6f8;
-        /* Lighter background for the page */
+
         color: #333;
-        /* Darker text color for better contrast */
+
     }
 
     .card {
         background-color: #fff;
-        /* White background for cards */
+
         border: none;
-        /* Remove default border */
+
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        /* Subtle shadow for depth */
+
         border-radius: 8px;
-        /* Rounded border for smooth look */
+
         margin-bottom: 20px;
-        /* Margin bottom for spacing */
+
     }
 
     .card h2 {
         color: #2980b9;
-        /* Material blue color for headings */
+
     }
 
     .highlighted {
         background-color: #bbdefb;
-        /* Material light blue color for highlights */
+
         padding: 10px;
         border-radius: 5px;
-        /* Rounded corners */
+
         margin-bottom: 10px;
-        /* Space after paragraph */
+
         box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
-        /* Inset shadow for emphasis */
+
     }
 
     .card h2::before {
-        /* Add icons to the headings */
+
         font-family: "Font Awesome 5 Free";
-        /* Font Awesome font family */
+
         font-weight: 900;
-        /* Font Awesome requires font-weight 900 */
+
         content: "\f1b3 ";
-        /* Unicode for globe (earth) */
+
         color: #2980b9;
-        /* Material blue color for icons */
+
         margin-right: 5px;
-        /* Space between icon and text */
+
     }
 
     .card-title {
         color: #1976d2;
-        /* Material blue color for the title */
+
         margin-bottom: 30px;
-        /* Space after title */
+
     }
 
-    /* Next button styling */
+
     .next-button-container .btn {
         width: 180px;
         height: 65px;
         background-color: #2980b9;
-        /* Stylized button background */
+
         color: white;
-        /* White text on button */
+
         border: none;
-        /* Removing button border */
+
         font-weight: bold;
-        /* Making button text bold */
+
         padding: 0.5rem 2rem;
-        /* Padding inside the button */
+
         border-radius: 5px;
-        /* Rounded corners */
+
         transition: background-color 0.3s ease;
-        /* Smooth background transition for hover */
+
     }
 
     .next-button-container .btn:hover {
         background-color: #1a5276;
-        /* Darker shade on hover */
+
         cursor: pointer;
-        /* Indicate button is clickable */
+
     }
 </style>
 {% endblock %}
