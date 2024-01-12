@@ -1,0 +1,147 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+{% block custom_styles %}
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap');
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
+
+
+    body {
+        font-family: 'Montserrat', sans-serif;
+        background-color: #f4f6f8;
+        color: #333;
+    }
+
+    .next-button-container .btn {
+        background-color: #2980b9;
+        color: white;
+        border: none;
+        font-weight: bold;
+        padding: 0.5rem 2rem;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+
+    }
+
+    .next-button-container .btn:hover {
+        background-color: #1a5276;
+        cursor: pointer;
+    }
+
+    .card {
+        background-color: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        margin-bottom: 15px;
+        padding: 20px;
+    }
+
+    .card-header {
+        background-color: #2980b9;
+        color: #fff;
+        padding: 10px 15px;
+        border-radius: 10px 10px 0 0;
+        font-size: 18px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+    }
+
+    .card-header i {
+        font-size: 20px;
+        margin-right: 10px;
+    }
+
+    .card-body {
+        padding: 15px;
+    }
+
+    .question-container {
+        margin: 20px 0;
+    }
+
+    .question-icon {
+        color: #2980b9;
+        margin-right: 8px;
+    }
+
+    .question-label {
+        font-weight: 500;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    .likert-scale {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+    }
+
+    .likert-option {
+        display: flex;
+        align-items: center;
+        column-gap: 20px;
+        margin-bottom: 10px;
+    }
+
+    .likert-slider {
+        flex: 0 0 70%;
+        /* Adjust the width as needed */
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .likert-slider input {
+        flex: 1;
+        text-align: center;
+    }
+</style>
+{%endblock%}
+{% block content %}
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <i class="fas fa-user"></i> Demographic Information
+        </div>
+        <div class="card-body">
+            <div class="question-container">
+                <label class="question-label"><i class="fas fa-calendar-alt question-icon"></i> Age:</label>
+                {{ formfield "age" }}
+            </div>
+            <div class="question-container">
+                <label class="question-label"><i class="fas fa-venus-mars question-icon"></i> Gender:</label>
+                {{ formfield "gender" }}
+            </div>
+            <div class="question-container">
+                <label class="question-label"><i class="fas fa-globe question-icon"></i> Country of Origin:</label>
+                {{ formfield "country_of_origin" }}
+            </div>
+            <div class="question-container">
+                <label class="question-label"><i class="fas fa-book-open question-icon"></i> Field of Study:</label>
+                {{ formfield "field_of_study" }}
+            </div>
+            <div class="question-container">
+                <label class="question-label"><i class="fas fa-graduation-cap question-icon"></i> Level of
+                    Education:</label>
+                {{ formfield "level_of_education" }}
+            </div>
+
+            <div class="likert-option">
+                <div class="likert-caption">
+                    Extremely left</div>
+                <div class="likert-slider">
+                    {{ formfield "political_views_scale" }}
+                </div>
+                <div class="likert-caption">Extremely right</div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="next-button-container text-center mt-3">
+        {{ next_button }}
+    </div>
+</div>
+{% endblock %}

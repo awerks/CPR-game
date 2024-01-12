@@ -1,0 +1,105 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block custom_styles %}
+<style>
+    /* Bootstrap and Font-Awesome fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap');
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
+
+    body {
+        font-family: 'Montserrat', sans-serif;
+        background-color: #ECF0F1;
+        color: #333;
+        transition: background-color 0.5s ease;
+    }
+
+    .card {
+        border-radius: 5px;
+        padding: 20px;
+        margin: 20px auto;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .likert-scale {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+    }
+
+    .likert-option {
+        display: flex;
+        align-items: center;
+
+        margin-bottom: 10px;
+    }
+
+    .likert-slider {
+        flex: 0 0 70%;
+        /* Adjust the width as needed */
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .likert-slider input {
+        flex: 1;
+        text-align: center;
+    }
+
+    .next-button-container .btn {
+        background-color: #2980B9;
+        color: white;
+        border: none;
+        font-weight: bold;
+        border-radius: 5px;
+        padding: 0.5rem 2rem;
+        transition: background-color 0.3s ease, color 0.2s ease;
+    }
+
+    .next-button-container .btn:hover {
+        background-color: #1A5276;
+        cursor: pointer;
+    }
+</style>
+
+{% endblock %}
+{% block content %}
+<!-- Form Fields -->
+<div class="card">
+    <i class="fas fa-edit text-center mb-4" style="font-size: 1.5rem; color: #2980B9;"></i>
+
+    <div class="likert-scale">
+        <div class="likert-option">
+            <div class="likert-caption">Completely Disagree</div>
+            <div class="likert-slider">
+                {{ formfield "propensity_to_cooperate_1" }}
+
+            </div>
+            <div class="likert-caption">Completely Agree</div>
+
+        </div>
+
+        <div class="likert-option">
+            <div class="likert-caption">Completely Disagree</div>
+            <div class="likert-slider">
+                {{ formfield "propensity_to_cooperate_2" }}
+            </div>
+            <div class="likert-caption">Completely Agree</div>
+        </div>
+        <div class="likert-option">
+            <div class="likert-caption">Completely Disagree</div>
+            <div class="likert-slider">
+                {{ formfield "propensity_to_cooperate_3" }}
+            </div>
+            <div class="likert-caption">Completely Agree</div>
+        </div>
+    </div>
+</div>
+
+<!-- Next Button -->
+<div class="text-center mt-3">
+    <div class="next-button-container">
+        {{ next_button }}
+    </div>
+</div>
+{%endblock%}

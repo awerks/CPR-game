@@ -1,0 +1,94 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+{% block custom_styles %}
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap');
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
+
+
+    body {
+        font-family: 'Montserrat', sans-serif;
+        background-color: #f4f6f8;
+        color: #333;
+    }
+
+    .end-container {
+        margin: 40px auto;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+        background-color: #ffffff;
+        max-width: 700px;
+    }
+
+    .end-message {
+        text-align: center;
+    }
+
+    .end-title {
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #4caf50;
+    }
+
+    .end-title i {
+        margin-right: 10px;
+    }
+
+    .end-message p {
+        color: #606770;
+    }
+
+    .next-button-container .btn {
+        background-color: #2980b9;
+        color: white;
+        border: none;
+        font-weight: bold;
+        padding: 0.5rem 2rem;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .next-button-container .btn:hover {
+        background-color: #1a5276;
+        cursor: pointer;
+    }
+
+    .payoff-amount {
+        color: #4caf50;
+        font-weight: 700;
+    }
+
+    .payoff-highlight {
+        display: inline-block;
+        background-color: #e8f5e9;
+        padding: 5px 12px;
+        border-radius: 6px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        margin-top: 10px;
+    }
+</style>
+{%endblock%}
+{% block content%}
+<div class="end-container">
+    <div class="end-message">
+        <h1 class="end-title">
+            <i class="fas fa-check-circle"></i>
+            End of the Survey
+        </h1>
+        <p>Thank you for participating!
+        </p>
+        {%if payoff > 0 %}
+        <p class="payoff-highlight">
+            Since you earned <span class="payoff-amount">{{total_personal_profit}} points</span> in total, you
+            will receive <span class="payoff-amount">{{payoff}}€</span>. Please stay seated.
+        </p>
+        {% endif%}
+    </div>
+</div>
+
+
+{%endblock%}

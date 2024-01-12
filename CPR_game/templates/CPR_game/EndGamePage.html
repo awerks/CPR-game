@@ -105,6 +105,20 @@
     .fas {
         margin-right: 10px;
     }
+
+    .payoff-amount {
+        color: #4caf50;
+        font-weight: 700;
+    }
+
+    .payoff-highlight {
+        display: inline-block;
+        background-color: #e8f5e9;
+        padding: 5px 12px;
+        border-radius: 6px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        margin-top: 10px;
+    }
 </style>
 {% endblock %}
 
@@ -117,7 +131,17 @@
         </h1>
         <p>Thank you for participating in the CPR game. Your responses have been recorded and
             will significantly contribute to our understanding of responses to common pool resource dilemmas. If you
-            have any feedback or additional insights you'd like to share, please don't hesitate to reach out.</p>
+            have any feedback or additional insights you'd like to share, please don't hesitate to reach out.
+
+        </p>
+        {%if payoff > 0 %}
+        <p class="payoff-highlight">
+            Since you earned <span class="payoff-amount">{{total_personal_profit}} points</span> in total, you
+            will receive <span class="payoff-amount">{{payoff}}€</span>. Please stay seated
+            until you are called up by the experiment instructors. You may then come to the front and receive your
+            money.
+        </p>
+        {% endif%}
     </div>
 </div>
 <div class="end-container">
@@ -129,4 +153,11 @@
         <p class="lead"><strong>Your total profit:</strong> {{ total_personal_profit }}</p>
     </div>
 </div>
+<div class="text-center mt-3">
+    <div class="next-button-container">
+        <button type="submit" class="btn btn-primary">
+            Take a survey!</button>
+    </div>
+</div>
+
 {% endblock %}

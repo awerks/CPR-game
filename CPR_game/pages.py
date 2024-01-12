@@ -24,9 +24,9 @@ class RolePage(Page):
 
     def vars_for_template(self):
         game_type = (
-            self.player.participant.vars["game_order"][0]
+            self.session.config["game_order"][0]
             if self.round_number < Constants.num_rounds // 2
-            else self.player.participant.vars["game_order"][1]
+            else self.session.config["game_order"][1]
         )
 
         if game_type == "equal":
@@ -37,10 +37,13 @@ class RolePage(Page):
             else:
                 endowment = max(Constants.unequal_endowments)
         return {
-            "is_homogenous": self.player.participant.vars["game_order"][0] == "equal",
+            "is_homogenous": self.session.config["game_order"][0] == "equal",
             "player_endownment": endowment,
             "other_players_endownment": 70 if endowment == 30 else 30,
         }
+
+    def before_next_page(self):
+        self.subsession.group_randomly()
 
 
 class TestRoundIntroPage(Page):
@@ -52,8 +55,8 @@ class EmissionsDecisionPage(Page):
     form_model = "player"
     form_fields = ["emissions"]
 
-    def get_timeout_seconds(self):
-        return Constants.equal_endowment
+    # def get_timeout_seconds(self):
+    #     return Constants.equal_endowment
 
     def is_displayed(self):
         return self.round_number <= Constants.num_rounds
@@ -64,12 +67,15 @@ class EmissionsDecisionPage(Page):
 
         round_number = (self.round_number if game_number == 1 else self.round_number - Constants.num_rounds // 2) - 1
 
+        endowment = self.player.endowment if self.round_number > 1 else Constants.equal_endowment
+        feedback_type = self.session.config["feedback_type"] if self.round_number > 1 else "immediate"
+        game_order = self.session.config["game_order"] if self.round_number > 1 else ["equal", "unequal"]
         return {
             "game_number": game_number,
             "round_number": round_number,
-            "endowment": self.player.endowment,
-            "game_order": str(self.player.participant.vars["game_order"]),
-            "feedback_type": self.player.participant.vars["feedback_type"],
+            "endowment": endowment,
+            "game_order": game_order,
+            "feedback_type": feedback_type,
         }
 
 
@@ -103,12 +109,12 @@ class FeedbackPage(Page):
             first_round_to_display = 1
 
         table_data = []
-
         for round_number in range(first_round_to_display, self.subsession.round_number + 1):
             round_data = []
             total_group_emission = 0
             total_group_profit = 0
-            next_round_profit_rate = self.player.group.in_round(round_number).profit_rate
+            co2_level = Constants.min_co2_level
+
             for player in players_in_all_rounds:
                 endowment = player[round_number - 1].endowment
                 emission = player[round_number - 1].emissions
@@ -116,20 +122,27 @@ class FeedbackPage(Page):
                 round_data.append([endowment, emission, profit])
                 total_group_emission += emission
                 total_group_profit += profit
+
+            co2_level += total_group_emission - Constants.regeneration_rate
+            co2_level = max(Constants.min_co2_level, co2_level)
+            next_round_profit_rate = round(Constants.initial_profit_rate * (Constants.min_co2_level / co2_level), 2)
             table_data.append(
                 (
                     round_number - 1 if game_number == 1 else round_number - 1 - half_round,
                     total_group_emission,
                     total_group_profit,
                     next_round_profit_rate,
+                    co2_level,
                     round_data,
                 )
             )
-
+        # print(self.player.group.get_previous_value("co2_level", Constants.min_co2_level))
+        # print((self.player.group.total_emission))
         return {
             "not_test_round": self.round_number > 1,
             "player_id": self.player.id_in_group,
             "table_data": table_data,
+            "co2_level": co2_level,
             "group_total_emission": self.player.group.total_emission,
             "total_group_emissions_all_rounds": total_group_emissions_all_rounds,
             "total_group_profit_all_rounds": total_group_profit_all_rounds,
@@ -139,10 +152,10 @@ class FeedbackPage(Page):
 
     def is_displayed(self):
         return (
-            self.player.participant.vars["feedback_type"] == "immediate"
+            self.session.config["feedback_type"] == "immediate"
             or self.player.round_number - 1 in Constants.feedback_rounds
-            if self.player.round_number <= Constants.num_rounds // 2
-            else self.player.round_number - Constants.num_rounds // 2 in Constants.feedback_rounds
+            if self.player.round_number - 1 <= Constants.num_rounds // 2
+            else self.player.round_number - 1 - Constants.num_rounds // 2 in Constants.feedback_rounds
         )
 
 
@@ -173,9 +186,9 @@ class NextGamePage(Page):
 
     def vars_for_template(self):
         game_type = (
-            self.player.participant.vars["game_order"][0]
+            self.session.config["game_order"][0]
             if self.round_number < Constants.num_rounds // 2
-            else self.player.participant.vars["game_order"][1]
+            else self.session.config["game_order"][1]
         )
 
         if game_type == "equal":
@@ -186,17 +199,18 @@ class NextGamePage(Page):
             else:
                 endowment = max(Constants.unequal_endowments)
         return {
-            "is_homogenous": self.player.participant.vars["game_order"][1] == "equal",
+            "is_homogenous": self.session.config["game_order"][1] == "equal",
             "player_endownment": endowment,
             "other_players_endownment": 70 if endowment == 30 else 30,
         }
 
 
 class NextGameWaitPage(WaitPage):
-    pass
+    def before_next_page(self):
+        self.group_randomly()
 
 
-class EndPage(Page):
+class EndGamePage(Page):
     def is_displayed(self):
         return self.round_number == Constants.num_rounds
 
@@ -210,16 +224,103 @@ class EndPage(Page):
 
         total_group_profit_all_rounds = sum([player.payoff for round in players_in_all_rounds for player in round])
         total_personal_profit = sum([player.payoff for player in self.player.in_rounds(2, self.round_number)])
+        payoff = float(total_personal_profit) / Constants.points_per_euro
         return {
             "total_group_emissions_all_rounds": total_group_emissions_all_rounds,
             "total_group_profit_all_rounds": total_group_profit_all_rounds,
+            "total_personal_profit": total_personal_profit,
+            "payoff": payoff,
+        }
+
+
+class DemographicsPage(Page):
+    form_model = "player"
+    form_fields = [
+        "age",
+        "gender",
+        "country_of_origin",
+        "field_of_study",
+        "level_of_education",
+        "political_views_scale",
+    ]
+
+    def is_displayed(self):
+        return self.round_number == Constants.num_rounds
+
+
+class ExperimentQuestionsPage(Page):
+    form_model = "player"
+    form_fields = [
+        "known_people_pre_experiment",
+        "past_experiment_participation",
+        "scenario_complexity",
+        "tasks_understanding",
+        "imagined_situation_difficulty",
+        "issues_during_experiment",
+    ]
+
+    def is_displayed(self):
+        return self.round_number == Constants.num_rounds
+
+
+class ClimateChangePage(Page):
+    form_model = "player"
+    form_fields = [
+        "climate_change_belief",
+        "thoughts_on_climate_change",
+        "cause_of_climate_change",
+        "personal_responsibility_to_reduce_climate_change",
+        "worry_about_climate_change",
+        "impact_of_climate_change",
+        "likelihood_of_reducing_climate_change_by_limiting_emissions",
+        "likelihood_people_will_limit_emissions",
+        "likelihood_governments_will_take_action",
+        "personal_impact_on_climate_change_by_limiting_emissions",
+        "support_for_climate_policies_fossil_fuels",
+        "support_for_climate_policies_renewable_energy",
+        "support_for_climate_policies_energy_efficient_appliances",
+    ]
+
+    def is_displayed(self):
+        return self.round_number == Constants.num_rounds
+
+
+class SocialPreferences(Page):
+    form_model = "player"
+    form_fields = ["income_differences_acceptable", "government_reduce_income_differences"]
+
+    def is_displayed(self):
+        return self.round_number == Constants.num_rounds
+
+
+class PropensityToCooperate(Page):
+    form_model = "player"
+    form_fields = [
+        "propensity_to_cooperate_1",
+        "propensity_to_cooperate_2",
+        "propensity_to_cooperate_3",
+    ]
+
+    def is_displayed(self):
+        return self.round_number == Constants.num_rounds
+
+
+class SurveyEndPage(Page):
+    def is_displayed(self):
+        return self.round_number == Constants.num_rounds
+
+    def vars_for_template(self):
+        total_personal_profit = sum([player.payoff for player in self.player.in_rounds(2, self.round_number)])
+        payoff = float(total_personal_profit) / Constants.points_per_euro
+        return {
+            "payoff": payoff,
             "total_personal_profit": total_personal_profit,
         }
 
 
 page_sequence = [
-    IntroductionPage,
-    QuestionnairePage,
+    # IntroductionPage,
+    # QuestionnairePage,
     TestRoundIntroPage,
     RolePage,
     EmissionsDecisionPage,
@@ -229,5 +330,11 @@ page_sequence = [
     FirstGameSummaryPage,
     NextGamePage,
     NextGameWaitPage,
-    EndPage,
+    EndGamePage,
+    ClimateChangePage,
+    SocialPreferences,
+    PropensityToCooperate,
+    ExperimentQuestionsPage,
+    DemographicsPage,
+    SurveyEndPage,
 ]

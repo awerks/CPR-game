@@ -10,7 +10,6 @@
         font-family: 'Montserrat', sans-serif;
         background-color: #f4f6f8;
         color: #333;
-
     }
 
     .container {
@@ -64,7 +63,6 @@
 
     .d-flex.justify-content-center {
         margin-top: 30px;
-
     }
 
     .btn {
@@ -93,7 +91,8 @@
         <h1 class="display-4"><i class="fas fa-chart-bar"></i> Feedback Page</h1>
     </div>
 
-    {% for round_number, group_total_emission, group_total_profit, next_round_profit_rate, round_data in table_data %}
+    {% for round_number, group_total_emission, group_total_profit, next_round_profit_rate, co2_level, round_data in
+    table_data %}
     <div class="card mt-5 shadow-lg">
         <h2 class="card-header"><i class="fas fa-user-friends"></i> Player Data - {%if not_test_round%} Round {{
             round_number }} {%else%} Test Round {%endif%}
@@ -129,7 +128,12 @@
                     </tr>
                 </tbody>
             </table>
-            <p style="font-weight: 600; color:#0d47a1">Next round's profit rate: {{next_round_profit_rate}}</p>
+            <p style="font-weight: 600; color:#0d47a1">Based on the group’s emissions, your group will start with a
+                CO2-level of: {{co2_level}}
+            <p>
+            <p style="font-weight: 600; color:#0d47a1">Therefore, your next round's profit rate is going to be:
+                {{next_round_profit_rate}}</p>
+
         </div>
     </div>
     {% endfor %}

@@ -1,0 +1,165 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+{% block custom_styles %}
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap');
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
+
+    body {
+        font-family: 'Montserrat', sans-serif;
+        background-color: #e9ecef;
+        color: #495057;
+    }
+
+    .next-button-container .btn {
+        background-color: #2980b9;
+        color: white;
+        border: none;
+        font-weight: bold;
+        padding: 0.5rem 2rem;
+        border-radius: .25rem;
+        transition: background-color 0.3s ease;
+        font-size: 1rem;
+    }
+
+    .next-button-container .btn:hover {
+        background-color: #1a5276;
+        cursor: pointer;
+    }
+
+    .card {
+        border: none;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        border-radius: .5rem;
+        margin-bottom: 2rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+        background-color: #2980b9;
+        color: #fff;
+        padding: 15px 20px;
+        border-radius: .5rem .5rem 0 0;
+        font-size: 1.25rem;
+        font-weight: 700;
+    }
+
+    .card-body {
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 0 0 .5rem .5rem;
+    }
+
+    .question-container {
+        margin-bottom: 1.5rem;
+    }
+
+    .question-icon {
+        color: #20c997;
+        margin-right: .5rem;
+    }
+
+    .question-label {
+        font-weight: 500;
+        line-height: 1.5;
+    }
+
+    .fa {
+        color: #20c997;
+    }
+
+    .form-control {
+        border-radius: .25rem;
+    }
+</style>
+{% endblock %}
+{% block content %}
+
+<div class="container mt-3">
+    <!-- Climate Change Beliefs Card -->
+    <div class="card">
+        <div class="card-header">
+            <i class="fas fa-globe-americas"></i> Climate Change Beliefs
+        </div>
+        <div class="card-body">
+            <div class="question-container">
+                {{ formfield "climate_change_belief" }}
+            </div>
+            <div class="question-container">
+                {{ formfield "thoughts_on_climate_change" }}
+            </div>
+            <div class="question-container">
+                {{ formfield "cause_of_climate_change" }}
+            </div>
+            <div class="question-container">
+                {{ formfield "personal_responsibility_to_reduce_climate_change" }}
+            </div>
+        </div>
+    </div>
+
+    <!-- Concerns and Impacts Card -->
+    <div class="card">
+        <div class="card-header">
+            <i class="fas fa-exclamation-triangle"></i> Concerns and Impacts
+        </div>
+        <div class="card-body">
+            <div class="question-container">
+                {{ formfield "worry_about_climate_change" }}
+            </div>
+            <div class="question-container">
+                {{ formfield "impact_of_climate_change" }}
+            </div>
+        </div>
+    </div>
+
+    <!-- Mitigation and Actions Card -->
+    <div class="card">
+        <div class="card-header">
+            <i class="fas fa-tasks"></i> Mitigation and Actions
+        </div>
+        <div class="card-body">
+            <div class="question-container">
+                {{ formfield "likelihood_of_reducing_climate_change_by_limiting_emissions" }}
+            </div>
+            <div class="question-container">
+                {{ formfield "likelihood_people_will_limit_emissions" }}
+            </div>
+            <div class="question-container">
+                {{ formfield "likelihood_governments_will_take_action" }}
+            </div>
+            <div class="question-container">
+                {{ formfield "personal_impact_on_climate_change_by_limiting_emissions" }}
+            </div>
+        </div>
+    </div>
+
+    <!-- Climate Policies Support Card -->
+    <div class="card">
+        <div class="card-header">
+            <i class="fas fa-hands-helping"></i> Climate Policies Support
+        </div>
+        <div class="card-body">
+            <div class="question-container">
+                {{ formfield "support_for_climate_policies_fossil_fuels" }}
+            </div>
+            <div class="question-container">
+                {{ formfield "support_for_climate_policies_renewable_energy" }}
+            </div>
+            <div class "question-container">
+                {{ formfield "support_for_climate_policies_energy_efficient_appliances" }}
+            </div>
+        </div>
+    </div>
+
+    <!-- Next Button -->
+    <div class="next-button-container text-center">
+        {{ next_button }}
+    </div>
+</div>
+
+{% endblock %}

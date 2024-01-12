@@ -7,7 +7,6 @@
     body {
         font-family: "Montserrat", sans-serif;
         background-color: #f4f6f8;
-
         color: #333;
     }
 
@@ -224,27 +223,26 @@
             const nextButton = document.querySelector("#next-button");
             revealButton.addEventListener("click", (event) => {
                 event.preventDefault();
-                const questionContainers = document.querySelectorAll(
-                    ".question-container"
-                );
+                const questionContainers = document.querySelectorAll(".question-container");
                 let allQuestionsAnswered = true;
 
                 questionContainers.forEach((container) => {
-                    const hasAnswer = container.querySelector(
-                        'input[type="radio"]:checked'
-                    );
+                    const hasAnswer = container.querySelector('input[type="radio"]:checked');
+                    const feedbackMessage = container.querySelector(".feedback-message");
                     if (!hasAnswer) {
                         allQuestionsAnswered = false;
                     } else {
                         // Highlight the answers based on correctness
-                        const correctAnswerId = container.getAttribute(
-                            "data-correct-answer-id"
-                        ); // This needs to be set on each `.question-container` with the id of the correct answer.
+                        const correctAnswerId = container.getAttribute("data-correct-answer-id");
 
                         if (hasAnswer.id === correctAnswerId) {
-                            hasAnswer.parentElement.classList.add("correct-answer");
+
+                            feedbackMessage.classList.add("correct-answer");
+                            feedbackMessage.innerHTML = '<p style="font-weight:bold;">Right: ' + feedbackMessage.innerHTML + '</p>';
                         } else {
-                            hasAnswer.parentElement.classList.add("incorrect-answer");
+                            feedbackMessage.classList.add("incorrect-answer");
+
+                            feedbackMessage.innerHTML = '<p style="font-weight:bold;">Wrong: ' + feedbackMessage.innerHTML + '</p>';
                         }
                     }
                 });
