@@ -29,9 +29,6 @@ __pycache__/
 *.egg-info
 *.egg
 *.pdf
-*.png
-*.jpg
-*.jpeg
 *.gif
 *.svg
 *.ico
